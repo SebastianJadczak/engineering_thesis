@@ -1,36 +1,39 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from main.forms.register_form import RegisterFormNewUser
+from main.models import CategoryProduct, ProductShop
 
 
-class MainView(View):
+class MainView(ListView):
     template_name = 'index.html'
-    # model = Point
+    model = CategoryProduct
 
-    def get(self, request, *args, **kwargs):
-        # --------------------------------------
-        # if (str(request.user) != 'AnonymousUser'):
-        #     self.userRole = UserRole.objects.filter(user=request.user).first()
-        # --------------------------------------
-        # print(self.coordinates[0].country)
-        return render(request, self.template_name)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_product'] = self.model.get_all_category()
+        context['all_products_with_promotion'] = ProductShop.get_all_products_with_promotion()
+        return context
 
-    # todo: odblokować po dodaniu modeli i zamiany typu widoku na ListView
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # context['point_favorite'] = self.favorite_point
-    #     # context['country'] = self.country
-    #     # context['city'] = self.coordinates
-    #     return context
+
+class SpecificProductCategory(DetailView):
+    template_name = 'detail_category.html'
+    model = CategoryProduct
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(self.kwargs['slug'])
+        context['category_product'] = CategoryProduct.objects.all()
+        context['product_with_category'] = self.model.get_category_after_slug(slug=self.kwargs['slug'])
+        return context
+
 
 class RegisterUserFormViews(View):
-    """Rejestracja użytkownika"""
+    """Rejestracja użytkownika. """
     form_class = RegisterFormNewUser
     template_name = 'registration/register.html'
-
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(None)

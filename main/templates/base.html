@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+<div class="wrapper-main">
+    <header>
+        <div class="img">
+            <img src="{% static 'img/logo.jpg' %}" alt="logo">
+        </div>
+        <div class="searcher">
+            <div class="search-border">
+                <input type="text" name="searcher">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <div class="user_menu">
+            <a class="login" href="{% url 'login' %}">
+                <i class="fa-regular fa-user"></i>
+                <p>Zaloguj</p>
+            </a>
+            <div class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            {% for category in category_product %}
+                <li><a href="{% url 'main:view_for_category'  category.slug %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <div class="main_image_page">
+        <img src="{% static 'img/promka.jpg' %}" alt="promocja baner">
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</div>
+<footer>Sebastian Jadczak</footer>
+</body>
+<script src="https://kit.fontawesome.com/0d0608dae7.js" crossorigin="anonymous"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/jquery-3.6.4.js' %}"></script>
+</html>
