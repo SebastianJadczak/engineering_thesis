@@ -1,10 +1,34 @@
-<!DOCTYPE html>
+{% load static %}
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zakupoholik</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
+<div class="register_page">
+    <div class="form_in_register_page">
+        <div class="container_register_form">
+            <div class="logo"><img src="{% static 'img/logo.jpg' %}" alt="logo"></div>
+            <h4>Zarejestruj się</h4>
+            <div class="form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div id="button">
+                        <button>Rejestruj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="image_in_register_page">
 
+    </div>
+</div>
 </body>
 </html>

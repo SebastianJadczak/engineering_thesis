@@ -2,5 +2,27 @@
 {% load static %}
 {% block title %} Zakupoholik.pl {% endblock %}
 {% block content %}
-cat
+    <div class="content">
+        <h3>Produkty</h3>
+        <ul>
+            {% for product in product_with_category %}
+                <li class="product_promotion">
+                    <div class="left">
+                        <img src="{{ product.image_product.url }}" alt="image product">
+                    </div>
+                    <div class="right">
+                        <p id="name_product">{{ product.name_product }}</p>
+                        <p id="desc_product">{{ product.descriptions }}</p>
+                        <form action="{% url 'shopping_cart:shopping_cart_add' product.id %}" method="post">
+                            <span>Ilość:</span>{{ form.amount }}
+                            {% csrf_token %}
+                            <input type="submit" value="Dodaj">
+                        </form>
+                    </div>
+
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
 {% endblock %}

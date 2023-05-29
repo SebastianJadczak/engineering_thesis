@@ -1,0 +1,28 @@
+{
+  "conversations": [
+    {"section": "przywitanie",
+     "requests": ["Cześć, jak masz na imie?", "Dzień dobry", "Hi", "Witam"],
+     "responses": ["Dzień dobry to ja bot, w czym mogę pomóc?", "Jestem Botem, w czym mogę pomóc?"]
+    },
+    {"section": "brak odpowiedzi",
+     "requests": [],
+     "responses": ["Powtórz pytanie", "Nie rozumiem Cię", "Jeszcze raz?", "Nie zadałeś pytania."]
+     },
+    {"section": "do widzenia",
+     "requests": ["do widzenia", "do zobaczenia", "idę", "pa"],
+     "responses": ["do widzenia", "do zobaczenia"]
+    },
+    {"section": "podziękowania",
+     "requests": ["Dziękuję", "Dzięki"],
+     "responses": ["nie ma za co", "cała przyjemność po mojej stronie", "polecam się"]
+    },
+     {"section": "produkt_1",
+      "requests": ["co mi powiesz o produkt_1", "produkt_1", "co myślisz o produkt_1"],
+      "responses": ["produkt_1 to...", "polecam produkt_1 bo..."]
+      },
+      {"section": "produkt_2",
+      "requests": ["co mi powiesz o produkt_2", "produkt_2", "co myślisz o produkt_2"],
+      "responses": ["produkt_2 to...", "polecam produkt_2 bo..."]
+      }
+  ]
+}

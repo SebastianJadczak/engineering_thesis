@@ -38,7 +38,7 @@ div.main_image_page img {
 
 /* Nawigacja */
 nav {
-    height: 50px;
+    height: 40px;
     border-top: 0.5px solid #c7c7c7;
     border-bottom: 0.5px solid #c7c7c7;
     margin-bottom: 10px;
@@ -54,7 +54,7 @@ nav ul {
 }
 
 nav ul li {
-    line-height: 50px;
+    line-height: 40px;
     font-family: Verdana, sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -68,13 +68,13 @@ nav ul li a {
 
 div.searcher {
     width: 700px;
-    height:90px;
     display: block;
-    line-height: 120px;
+    padding: 25px 0;
+    height: 40px
 }
 
 div.search-border {
-    line-height: 90px;
+    /*line-height: 90px;*/
     display: flex;
     flex-direction: row;
     border: 1px solid black;
@@ -82,9 +82,118 @@ div.search-border {
     height: 40px;
 }
 
+div.search-border i {
+    line-height: 40px;
+}
+
 /* Wyszukiwarka */
 div.searcher input {
     width: 420px;
     height: 36px;
     border: none;
+}
+
+div.searcher input:focus {
+    outline: none;
+}
+
+/*menu usera*/
+div.user_menu {
+    width: 200px;
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+}
+
+div.user_menu a.login {
+    display: flex;
+    flex-direction: row;
+}
+
+div.user_menu a.login i {
+    display: block;
+    font-size: 21px;
+    line-height: 110px;
+    margin-right: 8px;
+}
+
+/* Kategorie produktów. */
+div.category_image {
+    width: 80%;
+    margin: 30px auto;
+}
+
+div.category_image ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0
+}
+
+div.category_image ul li a {
+    text-decoration: none;
+}
+
+div.image_promotion_category {
+    background-image: url("../img/tlo_category.png");
+    background-size: contain;
+    width: 70px;
+    height: 70px;
+
+}
+
+div.image_promotion_category i {
+    color: white;
+    line-height: 70px;
+    margin-left: 25%;
+    font-size: 33px;
+}
+
+div.description_promotion_category p {
+    margin: 0;
+    color: black;
+    letter-spacing: 1.1px;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+}
+
+/*Lista promocji.*/
+div.content {
+    width: 80%;
+    margin: 45px auto;
+}
+
+div.content h3 {
+    font-family: Verdana, sans-serif;
+    font-size: 21px;
+    color: #444444;
+}
+
+div.content ul {
+    list-style: none;
+    padding: 0;
+}
+
+li.product_promotion {
+    /*border: 0.5px solid #e1e1e1;*/
+    /*box-shadow: 0 1px 1px #d5d5d5;*/
+    /*border-radius: 8px;*/
+    height: 350px;
+    display: flex;
+
+    border: 0.5px solid rgba(204, 204, 204, 0.42);
+    border-radius: 8px;
+    -webkit-box-shadow: -2px 7px 9px -8px rgba(141, 141, 141, 1);
+    -moz-box-shadow: -2px 7px 9px -8px rgba(141, 141, 141, 1);
+    box-shadow: -2px 7px 9px -8px rgba(141, 141, 141, 1);
+}
+
+li.product_promotion div.left {
+    height: 350px
+}
+
+li.product_promotion div.left img {
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }

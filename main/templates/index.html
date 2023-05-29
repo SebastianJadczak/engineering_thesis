@@ -7,15 +7,12 @@
         <ul>
             {% for category in category_product %}
                 <li>
-                    <a href="#">
+                    <a href="{% url 'main:view_for_category' category.slug %}">
                         <div class="image_promotion_category">
-                            <img src="" alt="">
+                            <i class="{{ category.font_category }}"></i>
                         </div>
                         <div class="description_promotion_category">
                             <p>{{ category.name }}</p>
-                        </div>
-                        <div class="more_promotion_category">
-                            <button onclick="more_about_category(id_category)">Więcej</button>
                         </div>
                     </a>
                 </li>
@@ -26,13 +23,23 @@
         <h3>Promocje</h3>
         <ul>
             {% for product in all_products_with_promotion %}
-                <li><a href="#">{{ product.name_product }}</a></li>
+                <li class="product_promotion">
+                    <div class="left">
+                        <img src="{{ product.image_product.url }}" alt="image product">
+                    </div>
+                    <div class="right">
+                        <p id="name_product">{{ product.name_product }}</p>
+                        <p id="desc_product">{{ product.descriptions }}</p>
+                        <form action="{% url 'shopping_cart:shopping_cart_add' product.id %}" method="post">
+                            <span>Ilość:</span>{{ form.amount }}
+                            {% csrf_token %}
+                            <input type="submit" value="Dodaj">
+                        </form>
+                    </div>
+
+                </li>
             {% endfor %}
         </ul>
 
     </div>
-    <div id="chatbot">
-        <img src="{% static 'img/chat.png' %}" alt="">
-    </div>
-
 {% endblock %}

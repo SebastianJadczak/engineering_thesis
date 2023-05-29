@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -10,6 +12,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
 
+SHOPPING_CART_SESSION_ID = 'shopping_cart'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -18,7 +21,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    'shopping_cart.apps.ShoppingCartConfig',
+    'customer_orders.apps.CustomerOrdersConfig',
+    'dashboard.apps.DashboardConfig'
 ]
 
 MIDDLEWARE = [
@@ -52,11 +58,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+DATABASE_ROUTERS = (
+    'dashboard.routers.MyRouter',
+    'customer_orders.routers.MyRouter',
+    'main.routers.MyRouter',
+)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'data_warehouse': {
+        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'DISABLE_SERVER_SIDE_CURSORS': True,
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -88,7 +107,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# LOGIN_REDIRECT_URL = reverse_lazy('map')
-# LOGOUT_REDIRECT_URL = reverse_lazy('map')
+LOGIN_REDIRECT_URL = reverse_lazy('main:main')
+LOGOUT_REDIRECT_URL = reverse_lazy('main:main')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

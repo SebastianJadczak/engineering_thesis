@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Zakupoholik.pl {% endblock %}
+{% block content %}
+    <ul>
+
+        {% for item in cart %}
+            {% with product=item.product_shop %}
+                <div id="element_in_cart">
+                    <p>{{ product }}</p>
+                    <p id="delete"><a href="{% url 'shopping_cart:cart_remove' product.id %}">Usuń</a></p>
+                    <p>Cena jednostkowa {{ item.price }}</p>
+                    <p>Cena całkowita {{ item.total_price }}</p>
+                    <p id="amount">ilość</p>
+                    <form action="{% url 'shopping_cart:shopping_cart_add' product.id %}" method="post">
+                        {{ item.update_amount_form.amount }}
+                        {{ item.update_amount_form.update }}
+                        <input type="submit" value="Zmień">
+                        {% csrf_token %}
+                    </form>
+
+                </div>
+            {% endwith %}
+        {% endfor %}
+        {% if user.is_authenticated %}
+            {% if cart|length > 0 %}
+                <a href="{% url 'main:customer_orders:order_create' %}" id="pay">Zapłać</a>
+            {% else %}
+                <p>Koszyk jest pusty</p>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}" id="pay">Zapłać</a>
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+<div class="wrapper-main">
+    <header>
+        <div class="img">
+            <img src="{% static 'img/logo.jpg' %}" alt="logo">
+        </div>
+        <div class="searcher">
+            <div class="search-border">
+                <input type="text" name="searcher">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <div class="user_menu">
+            {% if user.is_superuser %}
+                <a href="{% url 'main:main' %}" id="dashboard">Opuść</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a class="login" href="{% url 'logout' %}">
+                    <img src="{% static 'img/user.svg' %}" alt="user">
+                    <p>{{ user.username }}</p>
+                </a>
+            {% else %}
+                <a class="login" href="{% url 'login' %}">
+                    <img src="{% static 'img/user.svg' %}" alt="user">
+                    <p>Zaloguj</p>
+                </a>
+            {% endif %}
+            <div class="cart">
+                <a href="{% url 'shopping_cart:shopping_cart_detail' %}">
+                    <img src="{% static 'img/cart-shopping.svg' %}" alt="cart">
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="content-wrap">
+        <nav id="data_warehouse_menu">
+            <ul>
+                <li>
+                    <a href="{% url 'dashboard:first_dimension' %}">Pierwszy wymiar</a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:second_dimension' %}">Drugi wymiar</a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard:third_dimension' %}">Trzeci wymiar</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content">
+            <h3>Strona główna. Info.</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <button>Zasil hurtownie danych</button>
+            </form>
+            <div class="orders_list">
+                <table>
+                    <tr>
+                        <th class="small">id</th>
+                        <th class="small">Dzień zamówienia</th>
+                        <th class="small">Miesiąc zamówienia</th>
+                        <th>Rok zamówienia</th>
+                        <th>Imię klienta</th>
+                        <th>Nazwisko klienta</th>
+                        <th>Kod pocztowy</th>
+                        <th>Produkty</th>
+                        <th>Cena końcowa</th>
+                        <th>Zaarchiwizowane</th>
+                    </tr>
+                    {% for order in all_orders %}
+                        <tr class="{% if order.id|divisibleby:2 %}even{% else %}odd{% endif %}">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.create_date_day }}</td>
+                            <td>{{ order.create_date_month }}</td>
+                            <td>{{ order.create_date_year }}</td>
+                            <td>{{ order.name_customer }}</td>
+                            <td>{{ order.customer_last_name }}</td>
+                            <td>{{ order.zip_code }}</td>
+                            <td>
+                                {% for product in order.products %}
+                                    {{ product.product.name_product }} <br>
+                                {% endfor %}
+                            </td>
+                            <td>{{ order.total_price }}</td>
+                            <td>{{ order.archived }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

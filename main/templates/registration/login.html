@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,9 +6,26 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Zakupoholik</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
+<div class="login">
+    <div class="login_form">
+        <div class="container_login_form">
+            <div class="logo_in_login_form"><img src="{% static 'img/logo.jpg' %}" alt="logo"></div>
+            <h4>Zaloguj się</h4>
+            <form action="." method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <div id="button"><button>Zaloguj</button></div>
+            </form>
+            <p id="register">Nie masz konta? <a href="{% url 'register' %}">Zarejestruj!</a></p>
+        </div>
+    </div>
+    <div class="login_image">
 
+    </div>
+</div>
 </body>
 </html>

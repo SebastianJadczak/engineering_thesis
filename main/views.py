@@ -1,21 +1,33 @@
 from django.contrib.auth import authenticate, login
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView
 
+from main.chatbot.chatbot import ChatBot
 from main.forms.register_form import RegisterFormNewUser
 from main.models import CategoryProduct, ProductShop
+from shopping_cart.forms.forms import AmountProductInCart
 
 
 class MainView(ListView):
     template_name = 'index.html'
     model = CategoryProduct
+    form = AmountProductInCart()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_product'] = self.model.get_all_category()
         context['all_products_with_promotion'] = ProductShop.get_all_products_with_promotion()
+        context['form'] = self.form
         return context
+
+    def post(self, request):
+        print(request.POST.get('user_question'))
+        the_question = request.POST.get('user_question')
+
+        response = ChatBot().chatbot_response(the_question)
+        return JsonResponse({'response': response})
 
 
 class SpecificProductCategory(DetailView):
@@ -24,9 +36,9 @@ class SpecificProductCategory(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(self.kwargs['slug'])
         context['category_product'] = CategoryProduct.objects.all()
-        context['product_with_category'] = self.model.get_category_after_slug(slug=self.kwargs['slug'])
+        context['form'] = AmountProductInCart()
+        context['product_with_category'] = ProductShop.get_products_with_category_after_slug(slug=self.kwargs['slug'])
         return context
 
 
