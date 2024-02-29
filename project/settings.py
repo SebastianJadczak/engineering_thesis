@@ -11,6 +11,7 @@ SECRET_KEY = 'django-insecure-337ga^_lr=1146vel!ezarpupa54i50$(7bstw+fhepz&xb1j0
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', ]
+# todo: przenieść do .env
 
 SHOPPING_CART_SESSION_ID = 'shopping_cart'
 
