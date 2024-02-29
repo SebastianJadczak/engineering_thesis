@@ -17,13 +17,13 @@ class CustomerOrder(models.Model):
     def __str__(self):
         return 'Zamówienie z dnia {} nr {} w mieście {}'.format(self.create_date, self.id, self.location)
 
-    @staticmethod
-    def get_all_orders():
-        return CustomerOrder.objects.all()
+    @classmethod
+    def get_all_orders(cls):
+        return cls.objects.all()
 
-    @staticmethod
-    def get_all_not_archived_orders():
-        return CustomerOrder.objects.filter(archived=False)
+    @classmethod
+    def get_all_not_archived_orders(cls):
+        return cls.objects.filter(archived=False)
 
 
 class ElementInCustomerOrder(models.Model):
@@ -35,13 +35,13 @@ class ElementInCustomerOrder(models.Model):
     def __str__(self):
         return 'Produkt: {}'.format(self.id)
 
-    @staticmethod
-    def get_all_element_in_order(order: int):
-        return ElementInCustomerOrder.objects.filter(customer_order=order)
+    @classmethod
+    def get_all_element_in_order(cls, order: int):
+        return cls.objects.filter(customer_order=order)
 
-    @staticmethod
-    def create_element_in_order(customer_order, product, price_product, amount):
-        return ElementInCustomerOrder.objects.create(customer_order=customer_order,
+    @classmethod
+    def create_element_in_order(cls,customer_order, product, price_product, amount):
+        return cls.objects.create(customer_order=customer_order,
                                                      product=product,
                                                      amount=amount,
                                                      price_product=price_product)

@@ -94,12 +94,12 @@ class SecondDimensionDashboard(ListView):
         context['all_orders'] = self.__get_sales_after_second_quarter()
         return context
 
-    def __get_elements_only_second_quarter(self, el):
-        if el.id_data.quarter == '2':
+    def __get_elements_after_zip_code(self, el):
+        if el.id_client.zip_code == '12-1234':
             return el
 
     def __get_sales_after_second_quarter(self):
-        list_elements = [self.__get_elements_only_second_quarter(el) for el in self.model.objects.all()]
+        list_elements = [self.__get_elements_after_zip_code(el) for el in self.model.objects.all()]
         return list_elements
 
 
@@ -119,5 +119,4 @@ class ThirdDimensionDashboard(ListView):
     def __get_sales_after_total_price(self):
         list_elements = [self.__get_elements_only_larger_than_three_thousand_zlotys(el) for el in
                          self.model.objects.all()]
-        print(list_elements)
         return list_elements

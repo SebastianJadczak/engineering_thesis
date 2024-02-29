@@ -59,30 +59,33 @@
             </ul>
         </nav>
         <div class="content">
-            <h3>Drugi wymiar - Dane dla drugiego kwartału</h3>
+            <h3>Drugi wymiar - Dane dla danego kodu pocztowego "12-1234"</h3>
             <div class="orders_list">
                 <table>
                     <tr>
                         <th class="small">id</th>
+                        <th>Kod pocztowy</th>
                         <th>Imię klienta</th>
                         <th>Nazwisko klienta</th>
-                        <th>Kod pocztowy</th>
                         <th>Produkty</th>
                         <th>Cena końcowa</th>
                     </tr>
                     {% for order in all_orders %}
-                        <tr class="{% if order.id|divisibleby:2 %}even{% else %}odd{% endif %}">
-                            <td>{{ order.id }}</td>
-                            <td>{{ order.id_client.name }}</td>
-                            <td>{{ order.id_client.surname }}</td>
-                            <td>{{ order.id_client.zip_code }}</td>
-                            <td>
-                                {% for product in order.id_product.all %}
-                                    {{ product.name_product }} <br>
-                                {% endfor %}
-                            </td>
-                            <td>{{ order.total_price }}</td>
-                        </tr>
+                        {% if order.id != None %}
+                            <tr class="{% if order.id|divisibleby:2 %}even{% else %}odd{% endif %}">
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.id_client.zip_code }}</td>
+                                <td>{{ order.id_client.name }}</td>
+                                <td>{{ order.id_client.surname }}</td>
+
+                                <td>
+                                    {% for product in order.id_product.all %}
+                                        {{ product.name_product }} <br>
+                                    {% endfor %}
+                                </td>
+                                <td>{{ order.total_price }}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </table>
             </div>
